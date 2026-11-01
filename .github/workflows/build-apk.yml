@@ -1,0 +1,37 @@
+name: APK olustur
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - run: npm install
+      - run: npx cap add android
+      - name: Yatay (landscape) ekran
+        run: sed -i '0,/<activity/s//<activity android:screenOrientation="sensorLandscape"/' android/app/src/main/AndroidManifest.xml
+      - run: npx cap sync android
+      - name: APK derle
+        working-directory: android
+        run: ./gradlew assembleDebug
+      - name: APK adini duzenle
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk CountryballsFallout.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-v1.0.${{ github.run_number }}
+          name: Countryballs Fallout Android v1.0.${{ github.run_number }}
+          files: CountryballsFallout.apk

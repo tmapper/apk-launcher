@@ -1,0 +1,10 @@
+{
+  "appId": "com.countryballs.falloutsuspects",
+  "appName": "Countryballs Fallout",
+  "webDir": "www",
+  "server": {
+    "url": "countryballs-fallout.onrender.com",
+    "cleartext": false
+  },
+  "backgroundColor": "#0c0e14"
+}
