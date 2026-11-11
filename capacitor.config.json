@@ -3,7 +3,7 @@
   "appName": "Countryballs Fallout",
   "webDir": "www",
   "server": {
-    "url": "https://countryballs-fallout-y8ud.onrender.com",
+    "allowNavigation": ["*"],
     "cleartext": false
   },
   "backgroundColor": "#0c0e14"
